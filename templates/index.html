@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lead Scoring Prediction</title>
+    <style>
+        /* Background Gradient */
+        body {
+            font-family: Roboto, sans-serif;
+            background: linear-gradient(135deg, #0a0000, #3d0c47);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #ffffff;
+            text-align: center;
+        }
+
+        h1 {
+            color: #ffffff;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+        .form-container {
+            width: 50%;
+            max-width: 600px;
+            padding: 20px;
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* Dropdown Styles */
+        select, label {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #1e1a3a;
+            border: 1px solid #5f10cf;
+            color: #ffffff;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        label {
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            color: #ffffff;
+        }
+
+        /* Button Styles */
+        button {
+            grid-column: span 4;
+            background-color: #5f10cf;
+            color: #ffffff;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            border: 1px solid #ffffff;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            text-transform: uppercase;
+        }
+
+        button:hover {
+            background-color: #ffffff;
+            color: #5f10cf;
+            border-color: #5f10cf;
+        }
+
+        /* Lead Score and Category Styling */
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Lead Scoring Prediction</h1>
+        <form action="/predict" method="post">
+            <!-- Lead Origin -->
+            <div>
+                <label for="lead_origin">Lead Origin</label>
+                <select name="lead_origin">
+                    <option value="None Selected">None Selected</option>
+                    <option value="Add Form">Add Form</option>
+                    <option value="Lead Import">Lead Import</option>
+                </select>
+            </div>
+
+            <!-- Last Activity -->
+            <div>
+                <label for="last_activity">Last Activity</label>
+                <select name="last_activity">
+                    <option value="None Selected">None Selected</option>
+                    <option value="Converted to Lead">Converted to Lead</option>
+                    <option value="Email Bounced">Email Bounced</option>
+                    <option value="Olark Chat Conversation">Olark Chat Conversation</option>
+                    <option value="SMS Sent">SMS Sent</option>
+                </select>
+            </div>
+
+            <!-- Country Known -->
+            <div>
+                <label for="country_known">Country Known?</label>
+                <select name="country_known">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+
+            <!-- Specialization -->
+            <div>
+                <label for="specialization">Specialization</label>
+                <select name="specialization">
+                    <option value="None Selected">None Selected</option>
+                    <option value="Travel and Tourism">Travel and Tourism</option>
+                </select>
+            </div>
+
+            <!-- Current Occupation -->
+            <div>
+                <label for="current_occupation">Current Occupation</label>
+                <select name="current_occupation">
+                    <option value="Disclosed">Disclosed</option>
+                    <option value="Undisclosed">Undisclosed</option>
+                </select>
+            </div>
+
+            <!-- Tags -->
+            <div>
+                <label for="tags">Tags</label>
+                <select name="tags">
+                    <option value="None Selected">None Selected</option>
+                    <option value="Lost">Lost</option>
+                    <option value="Ongoing">Ongoing</option>
+                    <option value="Unable to Reach">Unable to Reach</option>
+                </select>
+            </div>
+
+            <!-- Lead Quality -->
+            <div>
+                <label for="lead_quality">Lead Quality</label>
+                <select name="lead_quality">
+                    <option value="None Selected">None Selected</option>
+                    <option value="Might be">Might be</option>
+                    <option value="Worst">Worst</option>
+                </select>
+            </div>
+
+            <!-- Asymmetrique Activity Index -->
+            <div>
+                <label for="asym_activity_index">Activity Index</label>
+                <select name="asym_activity_index">
+                    <option value="None Selected">None Selected</option>
+                    <option value="Low">Low</option>
+                    <option value="High">High</option>
+                </select>
+            </div>
+
+            <!-- Submit button -->
+            <button type="submit">Predict Lead Score</button>
+        </form>
+
+        <!-- Display Lead Score and Category -->
+        {% if score %}
+        <div class="result">
+            <p>Lead Score: {{ score }}</p>
+            <p>Lead Category: {{ category }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
